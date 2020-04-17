@@ -39,7 +39,7 @@ const char MAIN_page[] PROGMEM = R"=====(
 </head>
 <body>
 <div>
-  <input type="number" onclick="new_speed()" min="1" max="90" value="50" id="new_speed">
+  <input type="number" onchange="new_speed()" min="1" max="90" value="50" id="new_speed">
 </div>
 <div class="controls">
   <span id="left_joy_forwards" ontouchstart="left(1)" ontouchend="left(0)"></span>
@@ -52,7 +52,7 @@ const char MAIN_page[] PROGMEM = R"=====(
 
 <script>
   function new_speed(evt) {
-    var x = document.getElementByID("new_speed").value;
+    var x = document.getElementById("new_speed").value;
     ajax("setSpeed?speed=" + x);
   }
   

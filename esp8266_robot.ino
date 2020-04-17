@@ -44,17 +44,21 @@ void handleRight() {
  server.send(200, "text/plain", "ok");
 }
 
+IPAddress apIP(10, 10, 10, 1);
+
 void setup(void){
   Serial.begin(115200);
   
   servoleft.attach(0);   // D3
   servoright.attach(4);  // D2
 
-  WiFi.softAP(ssid, password);
+  WiFi.mode(WIFI_AP);
+  WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
+  bool result = WiFi.softAP(ssid, password);
+  Serial.println(result ? "Ready" : "Failed");
   IPAddress IP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
   Serial.println(IP);
-  Serial.println(WiFi.localIP());
  
   server.on("/", handleRoot);
   server.on("/setSpeed", handleSpeed);
